@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Book</title>
+</head>
+<body>
+<h2>Edit Book</h2>
+<form th:action="@{/edit/{id}(id=${book.id})}" method="post">
+  <label>Title:</label>
+  <input type="text" th:field="*{title}" required/><br/><br/>
+
+  <label>Author:</label>
+  <input type="text" th:field="*{author}" required/><br/><br/>
+
+  <!-- Thêm các trường thông tin khác của sách (nếu có) -->
+
+  <label>Category:</label>
+  <select th:field="*{category}" required>
+    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+  </select><br/><br/>
+
+  <input type="submit" value="Update"/>
+</form>
+</body>
+</html>

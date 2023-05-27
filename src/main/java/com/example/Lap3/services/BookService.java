@@ -1,6 +1,7 @@
 package com.example.Lap3.services;
 
 import com.example.Lap3.entity.Book;
+import com.example.Lap3.entity.Category;
 import com.example.Lap3.repository.IBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,14 @@ public class BookService {
 
     public void updateBook(Book book){
         bookRepository.save(book);
+    }
+
+
+    public List<Book> getAllCategories() {
+        // Triển khai logic để lấy danh sách các category từ nguồn dữ liệu (database, API, v.v.)
+        // Ví dụ:
+        List<Book> categories = bookRepository.findAll();
+
+        return categories;
     }
 }
