@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Edit Book</title>
+    <meta charset="UTF-8">
+    <th:block th:replace="layout :: link-css"></th:block>
+    <title>Edit Book</title>
 </head>
 <body>
-<h2>Edit Book</h2>
-<form th:action="@{/edit/{id}(id=${book.id})}" method="post">
-  <label>Title:</label>
-  <input type="text" th:field="*{title}" required/><br/><br/>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Edit Book</h1>
+  <form th:action="@{/books/edit}" th:object="${book}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <div class="col-6 mb-3">
+      <label class="form-label" for="title">Title: </label>
+      <input class="form-control" type="text" th:field="*{title}" id="title">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="author">Author: </label>
+      <input class="form-control" type="text" th:field="*{author}" id="author">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="price">Price: </label>
+      <input class="form-control" type="text" th:field="*{price}" id="price">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="category">Category: </label>
+      <select class="form-control" th:field="*{category.id}" id="category">
+        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+      </select>
+    </div>
 
-  <label>Author:</label>
-  <input type="text" th:field="*{author}" required/><br/><br/>
-
-  <!-- Thêm các trường thông tin khác của sách (nếu có) -->
-
-  <label>Category:</label>
-  <select th:field="*{category}" required>
-    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-  </select><br/><br/>
-
-  <input type="submit" value="Update"/>
-</form>
+    <input type="submit" class="btn btn-primary" value="Save">
+    <a th:href="@{/books}">Back to List</a>
+  </form>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
 </body>
 </html>

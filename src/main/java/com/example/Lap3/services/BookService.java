@@ -33,11 +33,4 @@ public class BookService {
     }
 
 
-    public List<Book> getAllCategories() {
-        // Triển khai logic để lấy danh sách các category từ nguồn dữ liệu (database, API, v.v.)
-        // Ví dụ:
-        List<Book> categories = bookRepository.findAll();
-
-        return categories;
-    }
 }

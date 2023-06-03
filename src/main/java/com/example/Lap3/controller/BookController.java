@@ -55,37 +55,6 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable("id") Long id, Model model) {
-        Book book = bookService.getBookById(id);
-//        if (book == null) {
-//            return "book/edit"; // Trang thông báo sách không tìm thấy
-//        }
-
-        List<Book> categories = bookService.getAllCategories(); // Lấy danh sách các category
-
-        model.addAttribute("book", book);
-        model.addAttribute("categories", categories);
-
-        return "book/edit"; // Trang view để hiển thị thông tin đầu sách cần chỉnh sửa
-    }
-
-    @PostMapping("/edit/{id}")
-    public String updateBook(@PathVariable("id") Long id, @ModelAttribute("book") Book updatedBook) {
-        Book book = bookService.getBookById(id);
-        if (book == null) {
-            return "book/edit"; // Trang thông báo sách không tìm thấy
-        }
-
-        // Cập nhật thông tin của đầu sách
-        book.setTitle(updatedBook.getTitle());
-        book.setAuthor(updatedBook.getAuthor());
-        // Tiếp tục cập nhật các thông tin khác (nếu có)
-
-        bookService.updateBook(book);
-        return "redirect:/books"; // Chuyển hướng người dùng đến trang danh sách đầu sách
-    }
-
     @GetMapping({"/delete/{id}"})
     public String DeleteBook(@PathVariable("id") Long id) {
         Book book = bookService.getBookById(id);
@@ -101,7 +70,35 @@ public class BookController {
 
 
 
+    @GetMapping("/edit/{id}")
+    public String editBookForm(@PathVariable("id") Long id, Model model) {
+        Book book = bookService.getBookById(id);
+        if (book != null) {
+            model.addAttribute("book", book);
+            model.addAttribute("categories", categoryService.getAllCategories());
+            return "book/edit";
+        } else {
+            return "redirect:/books";
+        }
+    }
+    @PostMapping("/edit")
+    public String editBook(@ModelAttribute("book") Book updatedBook) {
+        Long bookId = updatedBook.getId();
 
+        if (bookId != null) {
+            Book existingBook = bookService.getBookById(bookId);
+
+            if (existingBook != null) {
+                existingBook.setTitle(updatedBook.getTitle());
+                existingBook.setAuthor(updatedBook.getAuthor());
+                existingBook.setPrice(updatedBook.getPrice());
+                existingBook.setCategory(updatedBook.getCategory());
+                bookService.updateBook(existingBook);
+            }
+        }
+
+        return "redirect:/books";
+    }
 
 
 }
