@@ -1,11 +1,10 @@
 package com.example.Lap3.validator.annotation;
 
-import jakarta.validation.Constraint;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import com.example.Lap3.validator.ValidUsernameValidator;
+import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 import static java.lang.annotation.ElementType.FIELD;

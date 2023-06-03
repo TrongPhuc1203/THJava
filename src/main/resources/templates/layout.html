@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Website</title>
+    <title>My App</title>
     <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
@@ -10,7 +12,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">HUTECH</a>
-            <button class="navbar-toggler" type="button" data-bs-popper="collapse"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -19,10 +21,18 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/homepage">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="/books">List Book</a></li>
                     <li class="nav-item"><a class="nav-link" href="/books/add">Add Book</a></li>
+                    <li sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                            <button class="btn btn-outline-danger" type="submit">Logout</button>
+                        </form>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-primary" href="/login">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -36,3 +46,100 @@
 </footer>
 </body>
 </html>
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"-->
+<!--      lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>My App</title>-->
+<!--    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+<!--</head>-->
+<!--<body>-->
+<!--<header th:fragment="header">-->
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--        <div class="container-fluid">-->
+<!--            <a class="navbar-brand" href="#">HUTECH</a>-->
+<!--            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"-->
+<!--                    data-bs-target="#navbarSupportedContent"-->
+<!--                    aria-controls="navbarSupportedContent"-->
+<!--                    aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--                <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link active" aria-current="page" href="/">Home</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item"><a class="nav-link" href="/books">List Book</a></li>-->
+<!--                    <li class="nav-item"><a class="nav-link" href="/books/add">Add Book</a></li>-->
+<!--                    <li sec:authorize="isAuthenticated()">-->
+<!--                        <form th:action="@{/logout}" method="post">-->
+<!--                            <button class="btn btn-outline-danger" type="submit">Logout</button>-->
+<!--                        </form>-->
+<!--                    </li>-->
+<!--                    <li sec:authorize="!isAuthenticated()">-->
+<!--                        <a class="btn btn-outline-primary" href="/login">Login</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</header>-->
+<!--<div th:insert="~{::${content}}">-->
+
+<!--</div>-->
+<!--<footer th:fragment="footer">-->
+<!--    <script th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--</footer>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>My Website</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<header th:fragment="header">&ndash;&gt;-->
+<!--&lt;!&ndash;    <nav class="navbar navbar-expand-lg navbar-light bg-light">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="container-fluid">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="navbar-brand" href="#">HUTECH</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button class="navbar-toggler" type="button" data-bs-popper="collapse"&ndash;&gt;-->
+<!--&lt;!&ndash;                    data-bs-target="#navbarSupportedContent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    aria-controls="navbarSupportedContent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    aria-expanded="false" aria-label="Toggle navigation">&ndash;&gt;-->
+<!--&lt;!&ndash;                <span class="navbar-toggler-icon"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="collapse navbar-collapse" id="navbarSupportedContent">&ndash;&gt;-->
+<!--&lt;!&ndash;                <ul class="navbar-nav me-auto mb-2 mb-lg-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="nav-link active" aria-current="page" href="/homepage">Home</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li class="nav-item"><a class="nav-link" href="/books">List Book</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li class="nav-item"><a class="nav-link" href="/books/add">Add Book</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </nav>&ndash;&gt;-->
+<!--&lt;!&ndash;</header>&ndash;&gt;-->
+<!--&lt;!&ndash;<div th:insert="~{::${content}}">&ndash;&gt;-->
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<footer th:fragment="footer">&ndash;&gt;-->
+<!--&lt;!&ndash;    <script th:src="@{/js/bootstrap.min.js}"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;</footer>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
